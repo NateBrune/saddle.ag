@@ -1,268 +1,11 @@
-/**
- *Submitted for verification at Etherscan.io on 2020-11-05
-*/
-
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.12;
+pragma solidity ^0.8.12;
 
 // From https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/math/Math.sol
 // Subject to the MIT license.
 
-/**
- * @dev Wrappers over Solidity's arithmetic operations with added overflow
- * checks.
- *
- * Arithmetic operations in Solidity wrap on overflow. This can easily result
- * in bugs, because programmers usually assume that an overflow raises an
- * error, which is the standard behavior in high level programming languages.
- * `SafeMath` restores this intuition by reverting the transaction when an
- * operation overflows.
- *
- * Using this library instead of the unchecked operations eliminates an entire
- * class of bugs, so it's recommended to use it always.
- */
-library SafeMath {
-    /**
-     * @dev Returns the addition of two unsigned integers, reverting on overflow.
-     *
-     * Counterpart to Solidity's `+` operator.
-     *
-     * Requirements:
-     * - Addition cannot overflow.
-     */
-    function add(uint a, uint b) internal pure returns (uint) {
-        uint c = a + b;
-        require(c >= a, "add: +");
-
-        return c;
-    }
-
-    /**
-     * @dev Returns the addition of two unsigned integers, reverting with custom message on overflow.
-     *
-     * Counterpart to Solidity's `+` operator.
-     *
-     * Requirements:
-     * - Addition cannot overflow.
-     */
-    function add(uint a, uint b, string memory errorMessage) internal pure returns (uint) {
-        uint c = a + b;
-        require(c >= a, errorMessage);
-
-        return c;
-    }
-
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting on underflow (when the result is negative).
-     *
-     * Counterpart to Solidity's `-` operator.
-     *
-     * Requirements:
-     * - Subtraction cannot underflow.
-     */
-    function sub(uint a, uint b) internal pure returns (uint) {
-        return sub(a, b, "sub: -");
-    }
-
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on underflow (when the result is negative).
-     *
-     * Counterpart to Solidity's `-` operator.
-     *
-     * Requirements:
-     * - Subtraction cannot underflow.
-     */
-    function sub(uint a, uint b, string memory errorMessage) internal pure returns (uint) {
-        require(b <= a, errorMessage);
-        uint c = a - b;
-
-        return c;
-    }
-
-    /**
-     * @dev Returns the multiplication of two unsigned integers, reverting on overflow.
-     *
-     * Counterpart to Solidity's `*` operator.
-     *
-     * Requirements:
-     * - Multiplication cannot overflow.
-     */
-    function mul(uint a, uint b) internal pure returns (uint) {
-        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
-        // benefit is lost if 'b' is also tested.
-        // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522
-        if (a == 0) {
-            return 0;
-        }
-
-        uint c = a * b;
-        require(c / a == b, "mul: *");
-
-        return c;
-    }
-
-    /**
-     * @dev Returns the multiplication of two unsigned integers, reverting on overflow.
-     *
-     * Counterpart to Solidity's `*` operator.
-     *
-     * Requirements:
-     * - Multiplication cannot overflow.
-     */
-    function mul(uint a, uint b, string memory errorMessage) internal pure returns (uint) {
-        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
-        // benefit is lost if 'b' is also tested.
-        // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522
-        if (a == 0) {
-            return 0;
-        }
-
-        uint c = a * b;
-        require(c / a == b, errorMessage);
-
-        return c;
-    }
-
-    /**
-     * @dev Returns the integer division of two unsigned integers.
-     * Reverts on division by zero. The result is rounded towards zero.
-     *
-     * Counterpart to Solidity's `/` operator. Note: this function uses a
-     * `revert` opcode (which leaves remaining gas untouched) while Solidity
-     * uses an invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     * - The divisor cannot be zero.
-     */
-    function div(uint a, uint b) internal pure returns (uint) {
-        return div(a, b, "div: /");
-    }
-
-    /**
-     * @dev Returns the integer division of two unsigned integers.
-     * Reverts with custom message on division by zero. The result is rounded towards zero.
-     *
-     * Counterpart to Solidity's `/` operator. Note: this function uses a
-     * `revert` opcode (which leaves remaining gas untouched) while Solidity
-     * uses an invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     * - The divisor cannot be zero.
-     */
-    function div(uint a, uint b, string memory errorMessage) internal pure returns (uint) {
-        // Solidity only automatically asserts when dividing by 0
-        require(b > 0, errorMessage);
-        uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
-
-        return c;
-    }
-
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
-     * Reverts when dividing by zero.
-     *
-     * Counterpart to Solidity's `%` operator. This function uses a `revert`
-     * opcode (which leaves remaining gas untouched) while Solidity uses an
-     * invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     * - The divisor cannot be zero.
-     */
-    function mod(uint a, uint b) internal pure returns (uint) {
-        return mod(a, b, "mod: %");
-    }
-
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
-     * Reverts with custom message when dividing by zero.
-     *
-     * Counterpart to Solidity's `%` operator. This function uses a `revert`
-     * opcode (which leaves remaining gas untouched) while Solidity uses an
-     * invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     * - The divisor cannot be zero.
-     */
-    function mod(uint a, uint b, string memory errorMessage) internal pure returns (uint) {
-        require(b != 0, errorMessage);
-        return a % b;
-    }
-}
-
-/**
- * @dev Interface of the ERC20 standard as defined in the EIP.
- */
-interface IERC20 {
-    /**
-     * @dev Returns the amount of tokens in existence.
-     */
-    function totalSupply() external view returns (uint256);
-
-    /**
-     * @dev Returns the amount of tokens owned by `account`.
-     */
-    function balanceOf(address account) external view returns (uint256);
-
-    /**
-     * @dev Moves `amount` tokens from the caller's account to `recipient`.
-     *
-     * Returns a boolean value indicating whether the operation succeeded.
-     *
-     * Emits a {Transfer} event.
-     */
-    function transfer(address recipient, uint256 amount) external returns (bool);
-
-    /**
-     * @dev Returns the remaining number of tokens that `spender` will be
-     * allowed to spend on behalf of `owner` through {transferFrom}. This is
-     * zero by default.
-     *
-     * This value changes when {approve} or {transferFrom} are called.
-     */
-    function allowance(address owner, address spender) external view returns (uint256);
-
-    /**
-     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
-     *
-     * Returns a boolean value indicating whether the operation succeeded.
-     *
-     * IMPORTANT: Beware that changing an allowance with this method brings the risk
-     * that someone may use both the old and the new allowance by unfortunate
-     * transaction ordering. One possible solution to mitigate this race
-     * condition is to first reduce the spender's allowance to 0 and set the
-     * desired value afterwards:
-     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
-     *
-     * Emits an {Approval} event.
-     */
-    function approve(address spender, uint256 amount) external returns (bool);
-
-    /**
-     * @dev Moves `amount` tokens from `sender` to `recipient` using the
-     * allowance mechanism. `amount` is then deducted from the caller's
-     * allowance.
-     *
-     * Returns a boolean value indicating whether the operation succeeded.
-     *
-     * Emits a {Transfer} event.
-     */
-    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
-
-    /**
-     * @dev Emitted when `value` tokens are moved from one account (`from`) to
-     * another (`to`).
-     *
-     * Note that `value` may be zero.
-     */
-    event Transfer(address indexed from, address indexed to, uint256 value);
-
-    /**
-     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
-     * a call to {approve}. `value` is the new allowance.
-     */
-    event Approval(address indexed owner, address indexed spender, uint256 value);
-}
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 interface StrategyProxy {
     function lock() external;
@@ -272,14 +15,14 @@ interface FeeDistribution {
     function claim(address) external;
 }
 
-contract veCurveVault {
+contract veSaddleVault {
     using SafeMath for uint;
 
     /// @notice EIP-20 token name for this token
-    string public constant name = "veCRV-DAO yVault";
+    string public constant name = "veSDL-DAO agVault";
 
     /// @notice EIP-20 token symbol for this token
-    string public constant symbol = "yveCRV-DAO";
+    string public constant symbol = "agveSDL-DAO";
 
     /// @notice EIP-20 token decimals for this token
     uint8 public constant decimals = 18;
@@ -348,7 +91,7 @@ contract veCurveVault {
         address signatory = ecrecover(digest, v, r, s);
         require(signatory != address(0), "delegateBySig: sig");
         require(nonce == nonces[signatory]++, "delegateBySig: nonce");
-        require(now <= expiry, "delegateBySig: expired");
+        require(block.timestamp <= expiry, "delegateBySig: expired");
         _delegate(signatory, delegatee);
     }
 
@@ -459,12 +202,12 @@ contract veCurveVault {
     address public governance;
     address public pendingGovernance;
     
-    IERC20 public constant CRV = IERC20(0xD533a949740bb3306d119CC777fa900bA034cd52);
-    address public constant LOCK = address(0xF147b8125d2ef93FB6965Db97D6746952a133934);
-    address public proxy = address(0x7A1848e7847F3f5FfB4d8e63BdB9569db535A4f0);
+    IERC20 public constant SDL = IERC20(0xf1Dc500FdE233A4055e25e5BbF516372BC4F6871);
+    address public constant LOCK = address(0x0d8aB4Cb61bCaa6cD506d10e7C572C418CC0d0D4); // TODO change to slpVoter
+    address public proxy = address(0x882094c153D83DA48Df9660e7470a478199f1bd5); // TODO change to StrategyProxy (can be changed runtime)
     address public feeDistribution;
     
-    IERC20 public constant rewards = IERC20(0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490);
+    IERC20 public constant rewards = IERC20(0x0C6F06b32E6Ae0C110861b8607e67dA594781961); //Sushiswap: SDL/WETH
     
     uint public index = 0;
     uint public bal = 0;
@@ -480,7 +223,7 @@ contract veCurveVault {
             _claim();
             uint256 _bal = rewards.balanceOf(address(this));
             if (_bal > bal) {
-                uint256 _diff = _bal.sub(bal, "veCRV::_update: bal _diff");
+                uint256 _diff = _bal.sub(bal, "veSDL::_update: bal _diff");
                 if (_diff > 0) {
                     uint256 _ratio = _diff.mul(1e18).div(totalSupply);
                     if (_ratio > 0) {
@@ -504,7 +247,7 @@ contract veCurveVault {
         if (_supplied > 0) {
             uint256 _supplyIndex = supplyIndex[recipient];
             supplyIndex[recipient] = index;
-            uint256 _delta = index.sub(_supplyIndex, "veCRV::_claimFor: index delta");
+            uint256 _delta = index.sub(_supplyIndex, "veSDL::_claimFor: index delta");
             if (_delta > 0) {
               uint256 _share = _supplied.mul(_delta).div(1e18);
               claimable[recipient] = claimable[recipient].add(_share);
@@ -530,7 +273,7 @@ contract veCurveVault {
         bal = rewards.balanceOf(address(this));
     }
 
-    constructor() public {
+    constructor() {
         // Set governance for this token
         governance = msg.sender;
         DOMAINSEPARATOR = keccak256(abi.encode(DOMAIN_TYPEHASH, keccak256(bytes(name)), _getChainId(), address(this)));
@@ -549,7 +292,7 @@ contract veCurveVault {
     }
     
     function depositAll() external {
-        _deposit(CRV.balanceOf(msg.sender));
+        _deposit(SDL.balanceOf(msg.sender));
     }
     
     function deposit(uint _amount) external {
@@ -557,7 +300,7 @@ contract veCurveVault {
     }
     
     function _deposit(uint _amount) internal {
-        CRV.transferFrom(msg.sender, LOCK, _amount);
+        SDL.transferFrom(msg.sender, LOCK, _amount);
         _mint(msg.sender, _amount);
         StrategyProxy(proxy).lock();
     }
@@ -630,7 +373,7 @@ contract veCurveVault {
         address signatory = ecrecover(digest, v, r, s);
         require(signatory != address(0), "permit: signature");
         require(signatory == owner, "permit: unauthorized");
-        require(now <= deadline, "permit: expired");
+        require(block.timestamp <= deadline, "permit: expired");
 
         allowances[owner][spender] = amount;
 
@@ -664,11 +407,13 @@ contract veCurveVault {
      * @param amount The number of tokens to transfer
      * @return Whether or not the transfer succeeded
      */
+
     function transferFrom(address src, address dst, uint amount) external returns (bool) {
         address spender = msg.sender;
         uint spenderAllowance = allowances[src][spender];
 
-        if (spender != src && spenderAllowance != uint(-1)) {
+        uint256 MAX_INT = 2**256 - 1;
+        if (spender != src && spenderAllowance != uint(MAX_INT)) {
             uint newAllowance = spenderAllowance.sub(amount, "transferFrom: exceeds spender allowance");
             allowances[src][spender] = newAllowance;
 
@@ -687,11 +432,11 @@ contract veCurveVault {
         updateFor(dst);
 
         balances[src] = balances[src].sub(amount, "_transferTokens: exceeds balance");
-        balances[dst] = balances[dst].add(amount, "_transferTokens: overflows");
+        balances[dst] = balances[dst].add(amount);
         emit Transfer(src, dst, amount);
     }
 
-    function _getChainId() internal pure returns (uint) {
+    function _getChainId() internal view returns (uint) {
         uint chainId;
         assembly { chainId := chainid() }
         return chainId;
