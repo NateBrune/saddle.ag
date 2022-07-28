@@ -205,7 +205,7 @@ contract veSaddleVault {
     IERC20 public constant SDL = IERC20(0xf1Dc500FdE233A4055e25e5BbF516372BC4F6871);
     address public constant LOCK = address(0x0d8aB4Cb61bCaa6cD506d10e7C572C418CC0d0D4); // TODO change to slpVoter
     address public proxy = address(0x882094c153D83DA48Df9660e7470a478199f1bd5); // TODO change to StrategyProxy (can be changed runtime)
-    address public feeDistribution;
+    address public feeDistribution = address(0xabd040A92d29CDC59837e79651BB2979EA66ce04); // Saddle FeeDistribution
     
     IERC20 public constant rewards = IERC20(0x0C6F06b32E6Ae0C110861b8607e67dA594781961); //Sushiswap: SDL/WETH
     

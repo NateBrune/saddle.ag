@@ -1,9 +1,10 @@
-<script context="module">
+<script lang="ts" context="module">
 
 //export const ssr = false;
 import { NETWORKS } from '$lib/config';
 import { accountProvider, walletAddress } from '$lib/stores/provider';
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
+import { formatEther } from 'ethers/lib/utils';
 import { get } from 'svelte/store'
 
 const erc20Abi = [
@@ -68,6 +69,10 @@ export const claimRewards = () => new Promise((resolve, reject) => {
     })
 })
 
+export const ezFormatEth = (_number, _decimals ) => {
+    let dec = 10 ** _decimals
+    return Math.round(parseInt(formatEther(_number.mul(dec)))) / dec
+}
 </script>
 
 

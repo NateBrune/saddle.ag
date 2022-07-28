@@ -131,7 +131,7 @@ contract Strategy is SaddleVoterProxy {
     constructor(address _vault) SaddleVoterProxy(_vault) {
         dex = sushiswap;
         saddle = address(0x13Cc34Aa8037f722405285AD2C82FE570bfa2bdc);
-        gauge = address(0xB2Ac3382dA625eb41Fc803b57743f941a484e2a6);
+        gauge = address(0xB2Ac3382dA625eb41Fc803b57743f941a484e2a6); // saddleFraxBP Gauge Deposit
         keepSDL = 1000;
 
         path = new address[](3);
