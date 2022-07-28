@@ -22,7 +22,8 @@ interface ISwap {
 
     function getAPrecise() external view returns (uint256);
 
-    function getAllowlist() external view returns (IAllowlist);
+    //function getAllowlist() external view returns (IAllowlist);
+    function getAllowlist() external view returns (address);
 
     function getToken(uint8 index) external view returns (IERC20);
 
@@ -127,7 +128,7 @@ contract Strategy is SaddleVoterProxy {
 
     address[] public path;
 
-    constructor(address _vault) CurveVoterProxy(_vault) {
+    constructor(address _vault) SaddleVoterProxy(_vault) {
         dex = sushiswap;
         saddle = address(0x13Cc34Aa8037f722405285AD2C82FE570bfa2bdc);
         gauge = address(0xB2Ac3382dA625eb41Fc803b57743f941a484e2a6);
@@ -189,18 +190,22 @@ contract Strategy is SaddleVoterProxy {
         }
     }
 
-    function _add_liquidity(uint _usdc, uint _frax) internal {
+    function _add_liquidity(uint256 _usdc, uint256 _frax) internal {
         if (_usdc > 0) {
             IERC20(usdc).safeApprove(saddle, 0);
             IERC20(usdc).safeApprove(saddle, _usdc);
         }
 
         if (_frax > 0) {
-            IERC20(_frax).safeApprove(saddle, 0);
-            IERC20(_frax).safeApprove(saddle, _frax);
+            IERC20(frax).safeApprove(saddle, 0);
+            IERC20(frax).safeApprove(saddle, _frax);
         }
 
-        ISwap(saddle).addLiquidity([_usdc, _frax], 0, block.timestamp);
+        //uint256[] amounts = [_usdc, _frax];
+        uint256[] memory _value = new uint256[](2);
+        _value[0] = _usdc;
+        _value[2] = _frax;
+        ISwap(saddle).addLiquidity(_value, 0, block.timestamp);
     }
 
     // NOTE: Can override `tendTrigger` and `harvestTrigger` if necessary

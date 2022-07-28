@@ -93,7 +93,7 @@ abstract contract SaddleVoterProxy is BaseStrategy {
     address public constant voter = address(0xF147b8125d2ef93FB6965Db97D6746952a133934);
 
     address public constant sdl = address(0xf1Dc500FdE233A4055e25e5BbF516372BC4F6871);
-    address public constant dai = address(0x6B175474E89094C44Da98b954EedeAC495271d0F);
+    address public constant frax = address(0x6B175474E89094C44Da98b954EedeAC495271d0F);
     address public constant usdc = address(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48);
     address public constant usdt = address(0xdAC17F958D2ee523a2206206994597C13D831ec7);
     address public constant weth = address(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
@@ -106,7 +106,7 @@ abstract contract SaddleVoterProxy is BaseStrategy {
 
     address public proxy;
     address public dex;
-    address public curve;
+    address public saddle;
     address public gauge;
     uint256 public keepSDL;
 
@@ -115,7 +115,7 @@ abstract contract SaddleVoterProxy is BaseStrategy {
         maxReportDelay = 2 days;
         profitFactor = 1000;
         debtThreshold = 1e24;
-        proxy = address(0x9a165622a744C20E3B2CB443AeD98110a33a231b);
+        proxy = address(0x9a165622a744C20E3B2CB443AeD98110a33a231b); // strategyProxy
     }
 
     function setProxy(address _proxy) external onlyGovernance {

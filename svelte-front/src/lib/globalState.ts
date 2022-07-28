@@ -7,11 +7,13 @@ import { NETWORKS } from '$lib/config';
 import { networkProviders, walletAddress } from '$lib/stores/provider';
 
 walletAddress.subscribe( addy => {
+  console.log("syncing blockchain...")
+  console.log(`user address: ${addy}`)
   // Mainnet Syncs
   let sdlBalance = {
     trigger: Trigger.BLOCK,
     input: () => [addy],
-    output: (value: [BigNumber]) => sdlBalanceOnBlock.set(value[0]),
+    output: (value: [BigNumber]) => value ?  sdlBalanceOnBlock.set(value[0]) : null,
     call: {
       target: () => NETWORKS[0].sdlAddress,
       interface: IERC20,

@@ -20,12 +20,18 @@ const erc20Abi = [
     "event Transfer(address indexed from, address indexed to, uint amount)"
   ];
 const vaultAbi = [
-// Some details about the token
-"function name() view returns (string)",
-"function symbol() view returns (string)",
-// Get the account balance
-"function balanceOf(address) view returns (uint)",
-// Deposit funds into vault
+    // Some details about the token
+    "function name() view returns (string)",
+    "function symbol() view returns (string)",
+
+    // Get the account balance
+    "function balanceOf(address) view returns (uint)",
+    // Deposit funds into vault
+    "function deposit(uint _amount)",
+    // Deposit all funds
+    "function depositAll()",
+    // Claim SLP rewards
+    "function claim()"
 ];
 
 export const approveVault = () => new Promise((resolve, reject) => {
@@ -41,13 +47,22 @@ export const approveVault = () => new Promise((resolve, reject) => {
 
     //resolve(true)
 })
-export const depositVault = () => new Promise((resolve, reject) => {
+export const depositAllinVault = () => new Promise((resolve, reject) => {
     const provider = new ethers.providers.Web3Provider(get(accountProvider))
     const signer = provider.getSigner(get(walletAddress))
-    const contract = new ethers.Contract(NETWORKS[0].vault, erc20Abi, provider);
+    const contract = new ethers.Contract(NETWORKS[0].vault, vaultAbi, provider);
     const contractWithSigner = contract.connect(signer);
-    const max = ethers.constants.MaxUint256
-    contractWithSigner.approve(NETWORKS[0].vault, max).then(function(result) {
+    contractWithSigner.depositAll().then(function(result) {
+    //    alert(`transaction submitted: ${tx}`)
+        console.log(result)
+    })
+})
+export const claimRewards = () => new Promise((resolve, reject) => {
+    const provider = new ethers.providers.Web3Provider(get(accountProvider))
+    const signer = provider.getSigner(get(walletAddress))
+    const contract = new ethers.Contract(NETWORKS[0].vault, vaultAbi, provider);
+    const contractWithSigner = contract.connect(signer);
+    contractWithSigner.claim().then(function(result) {
     //    alert(`transaction submitted: ${tx}`)
         console.log(result)
     })

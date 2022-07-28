@@ -42,7 +42,12 @@ const config = {
         'pinkish': '#de6161',
         'blueish': '#2657eb',
         'royal-black': '#141E30',
-        'royal-blue': '#243B55'
+        'royal-blue': '#243B55',
+
+        //moonlit astroid
+        'moonlit1': '#0F2027',
+        'moonlit2': '#203A43',
+        'moonlit3': '#2C5364',
       },
     }
   },
