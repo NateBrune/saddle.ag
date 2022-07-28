@@ -40,7 +40,9 @@ const config = {
         'orange': '#f4a261',
         'dark-orange': '#e76f51',
         'pinkish': '#de6161',
-        'blueish': '#2657eb'
+        'blueish': '#2657eb',
+        'royal-black': '#141E30',
+        'royal-blue': '#243B55'
       },
     }
   },

@@ -23,6 +23,14 @@ const config = {
       default: true
     },
     files: { lib: 'src/lib', assets: 'static' },
+    vite: {
+      server: {
+        fs:{
+          allow: ['locales']
+        }
+      }
+    }
+    //kit.vite.server.fs.allow: ['locales']
   }
 };
 

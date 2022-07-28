@@ -18,7 +18,7 @@
             <img class="h-6 w-auto sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="">
           </a>
         </div>
-        <center><p class="text-5xl text-black font-medium">SDL Boosties Vault</p></center>
+        <center><p class="text-5xl text-black font-medium">Saddle Boosties Vault</p></center>
         <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
             {#if !$connected }
             <button
