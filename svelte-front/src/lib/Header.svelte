@@ -12,19 +12,17 @@
 <div class="relative bg-white">
     <div class="max-w-full mx-auto px-0 sm:px-0">
       <div class="flex justify-between items-center shadow-gray-dark shadow-lg py-1 md:justify-start  px-4 md:space-x-10">
-        <div class="flex justify-start lg:w-0 lg:flex-1">
-          <a href="#">
-            <span class="sr-only">Workflow</span>
-            <img class="h-6 w-auto sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="">
-          </a>
+        <div class="flex justify-start lg:w-0 lg:flex-1 gap-4">
+          <a href="/"><button class="p-3 rounded-xl text-md bg-black text-white font-semibold hover:scale-[1.05] transition transition-200">🔒 locker</button></a>
+          <a href="/vaults"><button class="p-3 rounded-xl text-md bg-black text-white font-semibold hover:scale-[1.05] transition transition-200">🏦 vaults</button></a>
         </div>
-        <center><p class="text-5xl text-black font-medium">Saddle Boosties Vault</p></center>
+        <center><p class="text-5xl text-black font-medium">saddle boosties vault</p></center>
         <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
             {#if !$connected }
             <button
                 on:click={connectMetamask}
                 class="p-3 rounded-xl text-md bg-black text-white font-semibold hover:scale-[1.05] transition transition-200"
-                >Connect Wallet</button
+                >connect wallet</button
             >
             <!--
             <button
@@ -37,7 +35,7 @@
             <button
                 on:click={disconnect}
                 class="p-3 rounded-xl text-md bg-black text-white font-semibold hover:scale-[1.05] transition transition-200"
-                >Disconnect</button
+                >disconnect</button
             >
             {/if}
         </div>

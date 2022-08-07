@@ -6,6 +6,8 @@ import { browser } from '$app/env';
 import { NETWORKS } from '$lib/config';
 
 export const networkProviders: { [chainId: string]: providers.JsonRpcProvider } = NETWORKS.reduce((networks, network) => {
+  console.log("attempting to make jsonRPC connection to node:")
+  console.log(network.rpcUrl)
   return { ...networks, [network.chainId]: new providers.JsonRpcProvider(network.rpcUrl) }
 }, {});
 

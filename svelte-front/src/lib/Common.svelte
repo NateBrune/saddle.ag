@@ -31,23 +31,50 @@ const vaultAbi = [
     "function deposit(uint _amount)",
     // Deposit all funds
     "function depositAll()",
+    // Deposit funds into vault
+    "function withdraw(uint _amount)",
+    // Deposit all funds
+    "function withdrawAll()",
+    
     // Claim SLP rewards
     "function claim()"
 ];
 
-export const approveVault = () => new Promise((resolve, reject) => {
+export const approveVault = (vault) => new Promise((resolve, reject) => {
     const provider = new ethers.providers.Web3Provider(get(accountProvider))
     const signer = provider.getSigner(get(walletAddress))
     const contract = new ethers.Contract(NETWORKS[0].sdlAddress, erc20Abi, provider);
     const contractWithSigner = contract.connect(signer);
     const max = ethers.constants.MaxUint256
-    contractWithSigner.approve(NETWORKS[0].vault, max).then(function(result) {
+    contractWithSigner.approve(vault, max).then(function(result) {
+        console.log(`transaction submitted`)
+        console.log(result)
+        resolve(true)
+    })
+})
+
+export const vaultDeposit = (vault, amount) => new Promise((resolve, reject) => {
+    const provider = new ethers.providers.Web3Provider(get(accountProvider))
+    const signer = provider.getSigner(get(walletAddress))
+    const contract = new ethers.Contract(vault, vaultAbi, provider);
+    const contractWithSigner = contract.connect(signer);
+    contractWithSigner.deposit(amount).then(function(result) {
     //    alert(`transaction submitted: ${tx}`)
         console.log(result)
     })
-
-    //resolve(true)
 })
+
+export const vaultWithdraw = (vault, amount) => new Promise((resolve, reject) => {
+    const provider = new ethers.providers.Web3Provider(get(accountProvider))
+    const signer = provider.getSigner(get(walletAddress))
+    const contract = new ethers.Contract(vault, vaultAbi, provider);
+    const contractWithSigner = contract.connect(signer);
+    contractWithSigner.withdraw(amount).then(function(result) {
+    //    alert(`transaction submitted: ${tx}`)
+        console.log(result)
+    })
+})
+
 export const depositAllinVault = () => new Promise((resolve, reject) => {
     const provider = new ethers.providers.Web3Provider(get(accountProvider))
     const signer = provider.getSigner(get(walletAddress))
@@ -74,5 +101,4 @@ export const ezFormatEth = (_number, _decimals ) => {
     return Math.round(parseInt(formatEther(_number.mul(dec)))) / dec
 }
 </script>
-
 

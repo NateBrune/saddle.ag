@@ -90,7 +90,7 @@ abstract contract SaddleVoterProxy is BaseStrategy {
     using Address for address;
     using SafeMath for uint256;
 
-    address public constant voter = address(0xF147b8125d2ef93FB6965Db97D6746952a133934);
+    address public constant voter = address(0xF147b8125d2ef93FB6965Db97D6746952a133934); // TODO change to slpVoter
 
     address public constant sdl = address(0xf1Dc500FdE233A4055e25e5BbF516372BC4F6871);
     address public constant frax = address(0x6B175474E89094C44Da98b954EedeAC495271d0F);

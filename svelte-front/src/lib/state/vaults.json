@@ -1,0 +1,13 @@
+[{
+  "address": "0x986b4AFF588a109c09B50A03f42E4110E29D353F",
+  "want": "0xA3D87FffcE63B53E0d54fAa1cc983B7eB0b74A9c",
+  "gauge": "0x3C0FFFF15EA30C35d7A85B85c0782D6c94e1d238",
+  "name": "Curve sETH Pool yVault "
+},
+{
+  "address": "0x25212Df29073FfFA7A67399AcEfC2dd75a831A1A",
+  "want": "0x194eBd173F6cDacE046C53eACcE9B953F28411d1",
+  "gauge": "0x90Bb609649E0451E5aD952683D64BD2d1f245840",
+  "name": " Curve EURS Pool yVault"
+}
+]

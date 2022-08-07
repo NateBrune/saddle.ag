@@ -43,6 +43,7 @@ const config = {
         'blueish': '#2657eb',
         'royal-black': '#141E30',
         'royal-blue': '#243B55',
+        'gray-dark-complement': '#5A300D',
 
         //moonlit astroid
         'moonlit1': '#0F2027',
