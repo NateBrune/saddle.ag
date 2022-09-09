@@ -67,13 +67,15 @@ contract StrategyProxy {
     using SafeMath for uint256;
     using SafeProxy for IProxy;
 
-    IProxy public constant proxy = IProxy(0xF147b8125d2ef93FB6965Db97D6746952a133934); //SLP Voter
-    address public constant mintr = address(0x358fE82370a1B9aDaE2E3ad69D6cF9e503c96018); // saddle: minter
+    
+    address public constant mintr = address(0x358fE82370a1B9aDaE2E3ad69D6cF9e503c96018); // Saddle.finance: minter
     address public constant sdl = address(0xf1Dc500FdE233A4055e25e5BbF516372BC4F6871);
-    address public constant gauge = address(0x99Cb6c36816dE2131eF2626bb5dEF7E5cc8b9B14); // saddle: Gauge Controller
-    address public constant agveSDL = address(0xc5bDdf9843308380375a611c18B50Fb9341f502A); // saddle: escrow
-    address public constant SLP = address(0xc64F8A9fe7BabecA66D3997C9d15558BF4817bE3); // saddle: SLP Gauge
-    FeeDistribution public constant feeDistribution = FeeDistribution(0xA464e6DCda8AC41e03616F95f4BC98a13b8922Dc); // saddle: feeDistribution
+    address public constant gauge = address(0x99Cb6c36816dE2131eF2626bb5dEF7E5cc8b9B14); // Saddle.finance: Gauge Controller
+    address public constant SLP = address(0x0C6F06b32E6Ae0C110861b8607e67dA594781961); // Saddle.finance: SLP Gauge
+    FeeDistribution public constant feeDistribution = FeeDistribution(0xA464e6DCda8AC41e03616F95f4BC98a13b8922Dc); // Saddle.finance: feeDistribution
+
+    IProxy public constant proxy = IProxy(0xF147b8125d2ef93FB6965Db97D6746952a133934); //TODO: change to SLP Voter
+    address public constant agveSDL = address(0xc5bDdf9843308380375a611c18B50Fb9341f502A); //TODO: change to veSaddleVault
 
     // gauge => strategies
     mapping(address => address) public strategies;
