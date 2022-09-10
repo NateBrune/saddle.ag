@@ -5,7 +5,11 @@ pragma solidity ^0.8.12;
 // Subject to the MIT license.
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {
+    SafeERC20,
+    IERC20,
+    Address
+} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 interface StrategyProxy {
     function lock() external;
@@ -17,12 +21,13 @@ interface FeeDistribution {
 
 contract veSaddleVault {
     using SafeMath for uint;
+    using SafeERC20 for IERC20;
 
     /// @notice EIP-20 token name for this token
-    string public constant name = "veSDL-DAO agVault";
+    string public constant name = "L2SDL Vault";
 
     /// @notice EIP-20 token symbol for this token
-    string public constant symbol = "agveSDL-DAO";
+    string public constant symbol = "L2SDL";
 
     /// @notice EIP-20 token decimals for this token
     uint8 public constant decimals = 18;
@@ -201,11 +206,11 @@ contract veSaddleVault {
     /// @notice governance address for the governance contract
     address public governance;
     address public pendingGovernance;
-    address public slpPayoutAddress;
+    address public slpPayout;
     
     IERC20 public constant SDL = IERC20(0xf1Dc500FdE233A4055e25e5BbF516372BC4F6871);
-    address public constant LOCK = address(0x0d8aB4Cb61bCaa6cD506d10e7C572C418CC0d0D4); // TODO change to slpVoter
-    address public proxy = address(0x882094c153D83DA48Df9660e7470a478199f1bd5); // TODO change to StrategyProxy (can be changed runtime)
+    address public constant LOCK = address(0x882094c153D83DA48Df9660e7470a478199f1bd5); // slpVoter *
+    address public proxy = address(0x0000000000000000000000000000000000000000); //StrategyProxy
     address public feeDistribution = address(0xabd040A92d29CDC59837e79651BB2979EA66ce04); // Saddle FeeDistribution
     IERC20 public constant rewards = IERC20(0x0C6F06b32E6Ae0C110861b8607e67dA594781961); //Sushiswap: SDL/WETH
     
@@ -246,8 +251,12 @@ contract veSaddleVault {
     }
     function _adjustSLP(uint256 _slp) internal returns (uint256) {
         uint256 _keepSLP = _slp.mul(keepSLP).div(DENOMINATOR);
-        IERC20(rewards).safeTransfer(slpPayoutAddress, _keepSLP);
-        return _slp.sub(_keepSLP);
+        if(_keepSLP > 0){
+            rewards.safeTransfer(slpPayout, _keepSLP);
+            return _slp.sub(_keepSLP);
+        } else {
+            return _slp;
+        }
     }
     
     function updateFor(address recipient) public {
@@ -335,20 +344,20 @@ contract veSaddleVault {
 
     /**
      * @notice Allows governance to change keepSLP for revenue sharing
-     * @param _keepSDL new keepSLP ratio to set
+     * @param _keepSLP new keepSLP ratio to set
      */
-    function setKeepSLP(uint256 _keepSDL) external {
+    function setKeepSLP(uint256 _keepSLP) external {
         require(msg.sender == governance, "setGovernance: !gov");
         keepSLP = _keepSLP;
     }
 
     /**
-     * @notice Allows governance to change slpPayoutAddress for revenue sharing
-     * @param _slpPayoutAddress new slpPayoutAddress to set
+     * @notice Allows governance to change slpPayout for revenue sharing
+     * @param _slpPayout new slpPayout to set
      */
-    function setKeepSLP(address _slpPayoutAddress) external {
+    function setSlpPayout(address _slpPayout) external {
         require(msg.sender == governance, "setGovernance: !gov");
-        slpPayoutAddress = _slpPayoutAddress;
+        slpPayout = _slpPayout;
     }
 
     /**

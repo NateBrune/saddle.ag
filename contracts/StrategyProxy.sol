@@ -54,13 +54,6 @@ library SafeProxy {
         if (!success) assert(false);
     }
 }
-
-
-    //Proxy public constant proxy = Proxy(0x0d8aB4Cb61bCaa6cD506d10e7C572C418CC0d0D4); // SaddleSLPVoter
-    //address public constant mintr = address(0x358fE82370a1B9aDaE2E3ad69D6cF9e503c96018); // saddle.finance: Gaugle Minter
-    //address public constant sdl = address(0xf1Dc500FdE233A4055e25e5BbF516372BC4F6871);
-    //address public constant gauge = address(0x99Cb6c36816dE2131eF2626bb5dEF7E5cc8b9B14); // saddle.finance: Gauge Controller
-    //address public constant slp = address(0xc64F8A9fe7BabecA66D3997C9d15558BF4817bE3); // saddle.finance: SLP Gauge
 contract StrategyProxy {
     using SafeERC20 for IERC20;
     using Address for address;
@@ -71,11 +64,11 @@ contract StrategyProxy {
     address public constant mintr = address(0x358fE82370a1B9aDaE2E3ad69D6cF9e503c96018); // Saddle.finance: minter
     address public constant sdl = address(0xf1Dc500FdE233A4055e25e5BbF516372BC4F6871);
     address public constant gauge = address(0x99Cb6c36816dE2131eF2626bb5dEF7E5cc8b9B14); // Saddle.finance: Gauge Controller
-    address public constant SLP = address(0x0C6F06b32E6Ae0C110861b8607e67dA594781961); // Saddle.finance: SLP Gauge
-    FeeDistribution public constant feeDistribution = FeeDistribution(0xA464e6DCda8AC41e03616F95f4BC98a13b8922Dc); // Saddle.finance: feeDistribution
-
-    IProxy public constant proxy = IProxy(0xF147b8125d2ef93FB6965Db97D6746952a133934); //TODO: change to SLP Voter
-    address public constant agveSDL = address(0xc5bDdf9843308380375a611c18B50Fb9341f502A); //TODO: change to veSaddleVault
+    address public constant SLP = address(0xc64F8A9fe7BabecA66D3997C9d15558BF4817bE3); // Saddle.finance: SLP Gauge
+    IProxy public constant proxy = IProxy(0x882094c153D83DA48Df9660e7470a478199f1bd5); // SLPVoter
+    address public constant L2SDL = address(0xe3779803D6CB73cd9a888D3078438AB55E0B1D24); // veSaddleVault
+    
+    FeeDistribution public feeDistribution = FeeDistribution(0xabd040A92d29CDC59837e79651BB2979EA66ce04); // Saddle.finance: feeDistribution
 
     // gauge => strategies
     mapping(address => address) public strategies;
@@ -91,6 +84,11 @@ contract StrategyProxy {
     function setGovernance(address _governance) external {
         require(msg.sender == governance, "!governance");
         governance = _governance;
+    }
+
+    function setFeeDistributor(FeeDistribution _feeDistribution) external {
+        require(msg.sender == governance, "!governance");
+        feeDistribution = _feeDistribution;
     }
 
     function approveStrategy(address _gauge, address _strategy) external {
@@ -165,7 +163,7 @@ contract StrategyProxy {
     }
 
     function claim(address recipient) external {
-        require(msg.sender == agveSDL, "!strategy");
+        require(msg.sender == L2SDL, "!strategy");
         if (block.timestamp < lastTimeCursor.add(604800)) return;
 
         address p = address(proxy);
