@@ -47,7 +47,7 @@ export const approveVault = (vault) => new Promise((resolve, reject) => {
     const contractWithSigner = contract.connect(signer);
     const max = ethers.constants.MaxUint256
     contractWithSigner.approve(vault, max).then(function(result) {
-        console.log(`transaction submitted`)
+        //console.log(`transaction submitted`)
         console.log(result)
         resolve(true)
     })

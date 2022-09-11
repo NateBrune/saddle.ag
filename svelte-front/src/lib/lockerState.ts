@@ -47,8 +47,8 @@ aggVeSDL.subscribe( veSdl => {
 
 
 walletAddress.subscribe( addy => {
-  console.log("syncing blockchain...")
-  console.log(`user address: ${addy}`)
+  //console.log("syncing blockchain...")
+  //console.log(`user address: ${addy}`)
   // Mainnet Syncs
   let sdlBalance = {
     trigger: Trigger.BLOCK,
@@ -183,31 +183,33 @@ walletAddress.subscribe( addy => {
 
   }
   
-
-
   if(get(activeSync) !== null ){
     let _sync = get(activeSync)
     _sync.destroy()
   }
-  let sync = new Sync([
-    sdlBalance,
-    vestedBalance,
-    //saddle guages claimable sdl
-    vaultBal,
-    gaugeClaimable,
+  try{
+    let sync = new Sync([
+      sdlBalance,
+      vestedBalance,
+      //saddle guages claimable sdl
+      vaultBal,
+      gaugeClaimable,
 
-    // vault stats
-    vaultClaimable,
-    setVaultTotalSupply,
-    setAggveSDL,
-    setTotalveSDL,
-    setVeApr,
+      // vault stats
+      vaultClaimable,
+      setVaultTotalSupply,
+      setAggveSDL,
+      setTotalveSDL,
+      setVeApr,
 
-    // random
-    setVaultAllowance
-    
-  ], networkProviders[String(NETWORKS[0].chainId)])
-  activeSync.set(sync)
+      // random
+      setVaultAllowance
+      
+    ], networkProviders[String(NETWORKS[0].chainId)])
+    activeSync.set(sync)
+  } catch (e) {
+    console.log("Sync error: " + e)
+  }
 })
 
   // vault_boost()  {

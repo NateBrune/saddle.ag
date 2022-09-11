@@ -24,11 +24,11 @@ export const NETWORKS: Network[] = [
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     sdlAddress: '0xf1dc500fde233a4055e25e5bbf516372bc4f6871',
     retroVesting: '0x5DCA270671935cf3dF78bd8373C22BE250198a03',
-    vault: '0xc5bDdf9843308380375a611c18B50Fb9341f502A', // TODO update to vault
-    proxy: '0xF147b8125d2ef93FB6965Db97D6746952a133934', // Update to slpVoter
-    feeDistributor: '0xA464e6DCda8AC41e03616F95f4BC98a13b8922Dc', // Update to slpVoter
-    slp: '0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490', // TODO change from 3crv to slp
-    veSDL: '0x5f3b5DfEb7B28CDbD7FAba78963EE202a494e2A2', // TODO change locker to sdl
+    vault: '0xe3779803D6CB73cd9a888D3078438AB55E0B1D24', // TODO update to vault *
+    proxy: '0x882094c153D83DA48Df9660e7470a478199f1bd5', // Update to slpVoter *
+    feeDistributor: '0xabd040A92d29CDC59837e79651BB2979EA66ce04', // Update to slpVoter *
+    slp: '0x0C6F06b32E6Ae0C110861b8607e67dA594781961', // TODO change from 3crv to slp *
+    veSDL: '0xD2751CdBED54B87777E805be36670D7aeAe73bb2', // TODO change locker to sdl*
     blockExplorerUrl: 'https://etherscan.com',
 
     // vaults

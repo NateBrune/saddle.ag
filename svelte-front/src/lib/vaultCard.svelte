@@ -22,7 +22,7 @@ import { vaultBalance } from './lockerState';
   let vaultPricePerShare = v.pricePerShare
   let vaultGaugeBalanace = v.gaugeBalance
   let vaultWorkingBalance = v.gaugeWorkingBalance
-  console.log(get(vaultTotalAssets))
+  //console.log(get(vaultTotalAssets))
   let boost = BigNumber.from(0);
   vaultWorkingBalance.subscribe((value) => {
     if(value > get(vaultWorkingBalance)){

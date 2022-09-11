@@ -34,7 +34,7 @@ walletAddress.subscribe( addy => {
       //bal = v.vaultBal
       //pps = v.vaultPPS
       //tvl = v.vaultTvl
-      console.log('v !== undefined')
+      //console.log('v !== undefined')
     } else {
       let bal = BigNumber.from(1000)
       let pps = writable<BigNumber>(BigNumber.from(0))
@@ -53,7 +53,7 @@ walletAddress.subscribe( addy => {
         }
       }
 
-      console.log("creating new sync")
+      //console.log("creating new sync")
       let newSync = new Sync([
         setVaultBal,
         //setVaultPPS,
