@@ -65,8 +65,8 @@ contract StrategyProxy {
     address public constant sdl = address(0xf1Dc500FdE233A4055e25e5BbF516372BC4F6871);
     address public constant gauge = address(0x99Cb6c36816dE2131eF2626bb5dEF7E5cc8b9B14); // Saddle.finance: Gauge Controller
     address public constant SLP = address(0xc64F8A9fe7BabecA66D3997C9d15558BF4817bE3); // Saddle.finance: SLP Gauge
-    IProxy public constant proxy = IProxy(0x882094c153D83DA48Df9660e7470a478199f1bd5); // SLPVoter
-    address public constant L2SDL = address(0xe3779803D6CB73cd9a888D3078438AB55E0B1D24); // veSaddleVault
+    IProxy public constant proxy = IProxy(0x77012c03f7DF9761ebf27768394adcBBACd8ccB6); // SLPVoter
+    address public constant L2SDL = address(0xfa4B1e50709e8890f23866f16da26B8a4780e464); // veSaddleVault
     
     FeeDistribution public feeDistribution = FeeDistribution(0xabd040A92d29CDC59837e79651BB2979EA66ce04); // Saddle.finance: feeDistribution
 
